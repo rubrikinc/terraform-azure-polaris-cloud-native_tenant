@@ -7,9 +7,6 @@ terraform {
       source  = "rubrikinc/polaris"
     } 
   }
-  backend "local" {
-    path = "./terraform.tfstate"
-  }
 }
 
 # Configure the Azure Active Directory Provider
