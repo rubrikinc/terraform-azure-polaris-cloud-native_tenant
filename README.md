@@ -61,8 +61,8 @@ No modules.
 
 | Name | Description |
 |------|-------------|
-| <a name="output_service_principal_object_id"></a> [service\_principal\_object\_id](#output\_service\_principal\_object\_id) | n/a |
-| <a name="output_service_principal_tenant_domain"></a> [service\_principal\_tenant\_domain](#output\_service\_principal\_tenant\_domain) | n/a |
+| <a name="output_azure_service_principal_object_id"></a> [azure\_service\_principal\_object\_id](#output\_azure\_service\_principal\_object\_id) | n/a |
+| <a name="output_rsc_service_principal_tenant_domain"></a> [rsc\_service\_principal\_tenant\_domain](#output\_rsc\_service\_principal\_tenant\_domain) | n/a |
 
 
 <!-- END_TF_DOCS -->
