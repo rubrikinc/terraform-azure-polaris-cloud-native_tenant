@@ -34,7 +34,7 @@ No requirements.
 | Name | Version |
 |------|---------|
 | <a name="provider_azuread"></a> [azuread](#provider\_azuread) | 2.43.0 |
-| <a name="provider_polaris"></a> [polaris](#provider\_polaris) | 0.7.0 |
+| <a name="provider_polaris"></a> [polaris](#provider\_polaris) | 0.7.2 |
 
 ## Resources
 
