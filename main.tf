@@ -1,3 +1,7 @@
+locals {
+  rsc_instance_fqdn = (element(split("/",jsondecode(file("${var.polaris_credentials}")).access_token_uri),2))
+}
+
 # Retrieve domain information
 data "azuread_domains" "polaris" {
   only_initial = true
@@ -7,7 +11,7 @@ data "azuread_domains" "polaris" {
 resource "azuread_application" "polaris" {
   display_name = "Rubrik Cloud Integration - terraform"
   web {
-    homepage_url  = "https://${var.polaris_fqdn}/setup_azure"
+    homepage_url  = "https://${local.rsc_instance_fqdn}/setup_azure"
   }
 }
 

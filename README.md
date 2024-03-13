@@ -18,8 +18,6 @@ module "polaris-azure-cloud-native_tenant" {
   source  = "rubrikinc/polaris-cloud-native_tenant/azure"
   
   polaris_credentials             = "../.creds/customer-service-account.json"
-  azure_tenant_id                 = "abcdef01-2345-6789-abcd-ef0123456789"
-  polaris_fqdn                    = "myhost.my.rubrik.com"
 }
 ```
 
@@ -57,7 +55,6 @@ No modules.
 |------|-------------|------|---------|:--------:|
 | <a name="input_azure_tenant_id"></a> [azure\_tenant\_id](#input\_azure\_tenant\_id) | ID of Azure Tenant to protect. | `string` | n/a | yes |
 | <a name="input_polaris_credentials"></a> [polaris\_credentials](#input\_polaris\_credentials) | Full path to credentials file for RSC/Polaris. | `string` | n/a | yes |
-| <a name="input_polaris_fqdn"></a> [polaris\_fqdn](#input\_polaris\_fqdn) | The fully qualified domain name (FQDN) portion of the RSC/Polaris URL for this tenant. | `string` | n/a | yes |
 
 ## Outputs
 
