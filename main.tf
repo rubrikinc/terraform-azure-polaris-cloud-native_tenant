@@ -17,7 +17,7 @@ resource "azuread_application" "polaris" {
 
 # Create a service principal
 resource "azuread_service_principal" "polaris" {
-  application_id = azuread_application.polaris.application_id
+  client_id = azuread_application.polaris.client_id
 }
 
 # Create a password for the service principal 
@@ -27,7 +27,7 @@ resource "azuread_service_principal_password" "polaris" {
 
 # Add the service principal to RSC:
 resource "polaris_azure_service_principal" "polaris" {
-  app_id        = azuread_application.polaris.application_id
+  app_id        = azuread_application.polaris.client_id
   app_name      = azuread_service_principal.polaris.display_name
   app_secret    = azuread_service_principal_password.polaris.value
   tenant_domain = data.azuread_domains.polaris.domains.0.domain_name
