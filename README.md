@@ -15,8 +15,9 @@ There are a few services you'll need in order to get this project off the ground
 
 ```hcl
 module "polaris-azure-cloud-native_tenant" {
-  source  = "rubrikinc/polaris-cloud-native_tenant/azure"
+  source                          = "rubrikinc/polaris-cloud-native_tenant/azure"
   
+  azure_tenant_id                 = "abcdef01-2345-6789-abcd-ef0123456789"
   polaris_credentials             = "../.creds/customer-service-account.json"
 }
 ```
