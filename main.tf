@@ -2,6 +2,10 @@ locals {
   rsc_instance_fqdn = (element(split("/",jsondecode(file("${var.polaris_credentials}")).access_token_uri),2))
 }
 
+# get current user information
+data "azuread_client_config" "current" {}
+
+
 # Retrieve domain information
 data "azuread_domains" "polaris" {
   only_initial = true
@@ -10,6 +14,7 @@ data "azuread_domains" "polaris" {
 # Create an application
 resource "azuread_application" "polaris" {
   display_name = "Rubrik Cloud Integration - terraform"
+  owners       = [data.azuread_client_config.current.object_id]
   web {
     homepage_url  = "https://${local.rsc_instance_fqdn}/setup_azure"
   }
@@ -18,6 +23,7 @@ resource "azuread_application" "polaris" {
 # Create a service principal
 resource "azuread_service_principal" "polaris" {
   client_id = azuread_application.polaris.client_id
+  owners  = [data.azuread_client_config.current.object_id]
 }
 
 # Create a password for the service principal 

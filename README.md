@@ -83,12 +83,6 @@ Next before running this module, the subscription must be selected. Do this by r
 
 Where <subscription_id> is the ID of the subscription where CCES will be deployed.
 
-## Configure the Backend
-
-This module is designed to use a shared backend with the [Terraform Module - Azure Rubrik Cloud Native Subscription](https://github.com/rubrikinc/terraform-azure-polaris-cloud-native_subscription) module. By default it is using a local `terraform.tfstate` file as a remote backend. This will work without modification as long as the path to the `terraform.tfstate` in the [Terraform Module - Azure Rubrik Cloud Native Subscription](https://github.com/rubrikinc/terraform-azure-polaris-cloud-native_subscription) module matches the path to the same file this module.
-
-A better best practice is to configure this module and the Terraform Module - Azure Rubrik Cloud Native Subscription](https://github.com/rubrikinc/terraform-azure-polaris-cloud-native_subscription) module to use a remote backend. To do so in this module the [providers.tf](providers.tf) file should be modified to use a remote backend that is appropriate for the installation. This will need to match the remote backend that is used in the [Terraform Module - Azure Rubrik Cloud Native Subscription](https://github.com/rubrikinc/terraform-azure-polaris-cloud-native_subscription) module. See [Backend Configuration}(https://developer.hashicorp.com/terraform/language/settings/backends/configuration) for more information about configuring remote backends.
-
 ## Initialize the Directory
 
 The directory can be initialized for Terraform use by running the `terraform init` command:
