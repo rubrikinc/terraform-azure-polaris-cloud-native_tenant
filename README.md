@@ -43,7 +43,7 @@ No requirements.
 | [azuread_application.polaris](https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/application) | resource |
 | [azuread_service_principal.polaris](https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/service_principal) | resource |
 | [azuread_service_principal_password.polaris](https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/service_principal_password) | resource |
-| [polaris_azure_service_principal.polaris](https://registry.terraform.io/providers/rubrikinc/polaris/latest/docs/resources/azure_service_principal) | resource |
+| [time_sleep.wait_for_sp](https://registry.terraform.io/providers/hashicorp/time/latest/docs/resources/sleep) | resource |
 | [azuread_domains.polaris](https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/data-sources/domains) | data source |
 
 ## Modules
@@ -56,6 +56,7 @@ No modules.
 |------|-------------|------|---------|:--------:|
 | <a name="input_azure_tenant_id"></a> [azure\_tenant\_id](#input\_azure\_tenant\_id) | ID of Azure Tenant to protect. | `string` | n/a | yes |
 | <a name="input_polaris_credentials"></a> [polaris\_credentials](#input\_polaris\_credentials) | Full path to credentials file for RSC/Polaris. | `string` | n/a | yes |
+| <a name="input_rsc_sync_delay"></a> [rsc\_sync\_delay](#input\_rsc\_sync\_delay) | Delay so that Azure and RSC can sync on the new service principal. | `string` | `"60s"` | no |
 
 ## Outputs
 
@@ -178,4 +179,3 @@ We glady welcome contributions from the community. From updating the documentati
 ## Developers
 
 This [README.md](README.md) was created with [terraform-docs](https://github.com/terraform-docs/terraform-docs). To update any of the auto generated parameters between the `<!-- BEGIN_TF_DOCS -->` and `<!-- END_TF_DOCS -->` lines first modify the [.terraform-docs.yml](.terraform-docs.yml) file, if needed. Then run [gen_docs.sh](gen_docs.sh) in this modules directory. For any documentation that needs to be modified outside of the `<!-- BEGIN_TF_DOCS -->` and `<!-- END_TF_DOCS -->` lines, modify this [README.md](README.md) file directly.
-
