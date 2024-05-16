@@ -1,6 +1,5 @@
-locals {
-  rsc_instance_fqdn = (element(split("/",jsondecode(file("${var.polaris_credentials}")).access_token_uri),2))
-}
+# Get RSC Account details
+data "polaris_account" "polaris" {}
 
 # get current user information
 data "azuread_client_config" "current" {}
@@ -16,7 +15,7 @@ resource "azuread_application" "polaris" {
   display_name = "Rubrik Cloud Integration - terraform"
   owners       = [data.azuread_client_config.current.object_id]
   web {
-    homepage_url  = "https://${local.rsc_instance_fqdn}/setup_azure"
+    homepage_url  = "https://${data.polaris_account.polaris.fqdn}/setup_azure"
   }
 }
 
@@ -39,3 +38,9 @@ resource "polaris_azure_service_principal" "polaris" {
   tenant_domain = data.azuread_domains.polaris.domains.0.domain_name
   tenant_id     = azuread_service_principal.polaris.application_tenant_id
 } 
+
+# Give RSC and   service principal to be created before adding the subscription.
+resource time_sleep "wait_for_sp" {
+  depends_on      = [polaris_azure_service_principal.polaris]
+  create_duration = var.rsc_sync_delay
+}

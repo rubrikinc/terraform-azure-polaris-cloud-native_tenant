@@ -14,6 +14,29 @@ There are a few services you'll need in order to get this project off the ground
 ## Usage
 
 ```hcl
+
+terraform {
+  required_providers {
+    azuread = {
+      source  = "hashicorp/azuread"
+    }
+    polaris = {
+      source  = "rubrikinc/polaris"
+      version = "0.9.0-beta.3"
+    } 
+  }
+}
+
+# Configure the Azure Active Directory Provider
+provider "azuread" {
+  tenant_id = var.azure_tenant_id
+}
+
+# Point the provider to the RSC service account to use.
+provider "polaris" {
+  credentials = var.polaris_credentials
+} 
+
 module "polaris-azure-cloud-native_tenant" {
   source                          = "rubrikinc/polaris-cloud-native_tenant/azure"
   
@@ -27,14 +50,17 @@ module "polaris-azure-cloud-native_tenant" {
 
 ## Requirements
 
-No requirements.
+| Name | Version |
+|------|---------|
+| <a name="requirement_polaris"></a> [polaris](#requirement\_polaris) | >=0.9.0-beta.3 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_azuread"></a> [azuread](#provider\_azuread) | 2.43.0 |
-| <a name="provider_polaris"></a> [polaris](#provider\_polaris) | 0.7.2 |
+| <a name="provider_azuread"></a> [azuread](#provider\_azuread) | n/a |
+| <a name="provider_polaris"></a> [polaris](#provider\_polaris) | >=0.9.0-beta.3 |
+| <a name="provider_time"></a> [time](#provider\_time) | n/a |
 
 ## Resources
 
@@ -44,7 +70,10 @@ No requirements.
 | [azuread_service_principal.polaris](https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/service_principal) | resource |
 | [azuread_service_principal_password.polaris](https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/service_principal_password) | resource |
 | [polaris_azure_service_principal.polaris](https://registry.terraform.io/providers/rubrikinc/polaris/latest/docs/resources/azure_service_principal) | resource |
+| [time_sleep.wait_for_sp](https://registry.terraform.io/providers/hashicorp/time/latest/docs/resources/sleep) | resource |
+| [azuread_client_config.current](https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/data-sources/client_config) | data source |
 | [azuread_domains.polaris](https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/data-sources/domains) | data source |
+| [polaris_account.polaris](https://registry.terraform.io/providers/rubrikinc/polaris/latest/docs/data-sources/account) | data source |
 
 ## Modules
 
@@ -56,6 +85,7 @@ No modules.
 |------|-------------|------|---------|:--------:|
 | <a name="input_azure_tenant_id"></a> [azure\_tenant\_id](#input\_azure\_tenant\_id) | ID of Azure Tenant to protect. | `string` | n/a | yes |
 | <a name="input_polaris_credentials"></a> [polaris\_credentials](#input\_polaris\_credentials) | Full path to credentials file for RSC/Polaris. | `string` | n/a | yes |
+| <a name="input_rsc_sync_delay"></a> [rsc\_sync\_delay](#input\_rsc\_sync\_delay) | Delay so that Azure and RSC can sync on the new service principal. | `string` | `"60s"` | no |
 
 ## Outputs
 
@@ -178,4 +208,3 @@ We glady welcome contributions from the community. From updating the documentati
 ## Developers
 
 This [README.md](README.md) was created with [terraform-docs](https://github.com/terraform-docs/terraform-docs). To update any of the auto generated parameters between the `<!-- BEGIN_TF_DOCS -->` and `<!-- END_TF_DOCS -->` lines first modify the [.terraform-docs.yml](.terraform-docs.yml) file, if needed. Then run [gen_docs.sh](gen_docs.sh) in this modules directory. For any documentation that needs to be modified outside of the `<!-- BEGIN_TF_DOCS -->` and `<!-- END_TF_DOCS -->` lines, modify this [README.md](README.md) file directly.
-
