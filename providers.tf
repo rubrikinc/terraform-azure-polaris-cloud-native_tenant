@@ -9,12 +9,12 @@ terraform {
   }
 }
 
-# Configure the Azure Active Directory Provider
-provider "azuread" {
-  tenant_id = var.azure_tenant_id
-}
+# # Configure the Azure Active Directory Provider
+# provider "azuread" {
+#   tenant_id = var.azure_tenant_id
+# }
 
-# Point the provider to the RSC service account to use.
-provider "polaris" {
-  credentials = var.polaris_credentials
-} 
+# # Point the provider to the RSC service account to use.
+# provider "polaris" {
+  #   credentials = var.polaris_credentials
+# } 
