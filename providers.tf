@@ -5,6 +5,7 @@ terraform {
     }
     polaris = {
       source  = "rubrikinc/polaris"
+      version = ">=0.9.0-beta.3"
     } 
   }
 }
@@ -16,5 +17,5 @@ terraform {
 
 # # Point the provider to the RSC service account to use.
 # provider "polaris" {
-  #   credentials = var.polaris_credentials
+#   credentials = var.polaris_credentials
 # } 

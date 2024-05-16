@@ -27,14 +27,17 @@ module "polaris-azure-cloud-native_tenant" {
 
 ## Requirements
 
-No requirements.
+| Name | Version |
+|------|---------|
+| <a name="requirement_polaris"></a> [polaris](#requirement\_polaris) | >=0.9.0-beta.3 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_azuread"></a> [azuread](#provider\_azuread) | 2.43.0 |
-| <a name="provider_polaris"></a> [polaris](#provider\_polaris) | 0.7.2 |
+| <a name="provider_azuread"></a> [azuread](#provider\_azuread) | n/a |
+| <a name="provider_polaris"></a> [polaris](#provider\_polaris) | >=0.9.0-beta.3 |
+| <a name="provider_time"></a> [time](#provider\_time) | n/a |
 
 ## Resources
 
