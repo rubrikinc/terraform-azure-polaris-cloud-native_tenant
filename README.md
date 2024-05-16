@@ -14,6 +14,29 @@ There are a few services you'll need in order to get this project off the ground
 ## Usage
 
 ```hcl
+
+terraform {
+  required_providers {
+    azuread = {
+      source  = "hashicorp/azuread"
+    }
+    polaris = {
+      source  = "rubrikinc/polaris"
+      version = "0.9.0-beta.3"
+    } 
+  }
+}
+
+# Configure the Azure Active Directory Provider
+provider "azuread" {
+  tenant_id = var.azure_tenant_id
+}
+
+# Point the provider to the RSC service account to use.
+provider "polaris" {
+  credentials = var.polaris_credentials
+} 
+
 module "polaris-azure-cloud-native_tenant" {
   source                          = "rubrikinc/polaris-cloud-native_tenant/azure"
   
@@ -46,7 +69,9 @@ module "polaris-azure-cloud-native_tenant" {
 | [azuread_application.polaris](https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/application) | resource |
 | [azuread_service_principal.polaris](https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/service_principal) | resource |
 | [azuread_service_principal_password.polaris](https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/service_principal_password) | resource |
+| [polaris_azure_service_principal.polaris](https://registry.terraform.io/providers/rubrikinc/polaris/latest/docs/resources/azure_service_principal) | resource |
 | [time_sleep.wait_for_sp](https://registry.terraform.io/providers/hashicorp/time/latest/docs/resources/sleep) | resource |
+| [azuread_client_config.current](https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/data-sources/client_config) | data source |
 | [azuread_domains.polaris](https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/data-sources/domains) | data source |
 | [polaris_account.polaris](https://registry.terraform.io/providers/rubrikinc/polaris/latest/docs/data-sources/account) | data source |
 
