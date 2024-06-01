@@ -115,7 +115,7 @@ resource "azuread_service_principal_delegated_permission_grant" "azsvcmgmt" {
 
 # Create a password for the app registration
 resource "azuread_application_password" "polaris" {
-  application_id = azuread_application.polaris.object_id
+  application_id = azuread_application.polaris.id
 }
 
 # Add the service principal to RSC:
