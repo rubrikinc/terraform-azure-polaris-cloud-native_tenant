@@ -31,6 +31,7 @@ data "azuread_service_principal" "azsvcmgmt" {
 resource "azuread_application" "polaris" {
   display_name = "Rubrik Security Cloud - terraform"
   owners       = [data.azuread_client_config.current.object_id]
+  prevent_duplicate_names = true
   
   web {
     homepage_url  = "https://${data.polaris_account.polaris.fqdn}/setup_azure"
