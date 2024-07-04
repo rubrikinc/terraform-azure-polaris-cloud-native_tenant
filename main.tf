@@ -29,12 +29,12 @@ data "azuread_service_principal" "azsvcmgmt" {
 
 # Create an application
 resource "azuread_application" "polaris" {
-  display_name = "Rubrik Security Cloud - terraform"
-  owners       = [data.azuread_client_config.current.object_id]
+  display_name            = "Rubrik Security Cloud - Azure Protection"
+  owners                  = [data.azuread_client_config.current.object_id]
   prevent_duplicate_names = true
   
   web {
-    homepage_url  = "https://${data.polaris_account.polaris.fqdn}/setup_azure"
+    homepage_url = "https://${data.polaris_account.polaris.fqdn}/setup_azure"
   }
   
   required_resource_access {
@@ -50,7 +50,7 @@ resource "azuread_application" "polaris" {
     resource_app_id = data.azuread_application_published_app_ids.well_known.result.AzureStorage
 
     resource_access {
-      id = data.azuread_service_principal.azstg.oauth2_permission_scope_ids["user_impersonation"]
+      id   = data.azuread_service_principal.azstg.oauth2_permission_scope_ids["user_impersonation"]
       type = "Scope"
     }
   }
@@ -59,7 +59,7 @@ resource "azuread_application" "polaris" {
     resource_app_id = data.azuread_application_published_app_ids.well_known.result.AzureServiceManagement
 
     resource_access {
-      id = data.azuread_service_principal.azsvcmgmt.oauth2_permission_scope_ids["user_impersonation"]
+      id   = data.azuread_service_principal.azsvcmgmt.oauth2_permission_scope_ids["user_impersonation"]
       type = "Scope"
     }
   }
@@ -68,12 +68,16 @@ resource "azuread_application" "polaris" {
 # Create a service principal
 resource "azuread_service_principal" "polaris" {
   client_id = azuread_application.polaris.client_id
-  # If app_role_assignment_required is true, 
-  # then it requires a user or group to be assigned in order to use this app; 
-  # this is recommended for least privilege access.
-  # See the azuread_app_role_assignment resource examples below.
+  owners    = [data.azuread_client_config.current.object_id]
+  
+  # If app_role_assignment_required value is set to true, then it is required a user or group is assigned in order to use this app.
+  # This is recommended to ensure only authorized users are able to operate Rubrik Security Cloud through this App.
+  
   app_role_assignment_required = true
-  owners  = [data.azuread_client_config.current.object_id]
+
+  # If set to true, then see the azuread_group data import and azuread_app_role_assignment resource examples below.
+  # Modify to align to your requirements for the same.
+  
   feature_tags {
     hide = "true"
   }
@@ -100,19 +104,19 @@ resource "azuread_service_principal_delegated_permission_grant" "azsvcmgmt" {
   claim_values                         = ["user_impersonation"]
 }
 
-# # Import the group used for all users of Rubrik Security Cloud - 
-# # may be created in this module, or externally as shown in the example below.
-# data "azuread_group" "rsc" {
-#   display_name     = "RSC Users"
-#   security_enabled = true
-# }
+# Import the group used for all users of Rubrik Security Cloud - 
+# may be created in this module, or externally as shown in the example below.
+data "azuread_group" "rsc" {
+  display_name     = "RSC Users"
+  security_enabled = true
+}
 
-# # Assign the RSC Users group to the app
-# resource "azuread_app_role_assignment" "polaris" {
-#   app_role_id         = "00000000-0000-0000-0000-000000000000"
-#   principal_object_id = data.azuread_group.rsc.object_id
-#   resource_object_id  = azuread_service_principal.polaris.object_id
-# }
+# Assign the RSC Users group to the app
+resource "azuread_app_role_assignment" "polaris" {
+  app_role_id         = "00000000-0000-0000-0000-000000000000" # https://learn.microsoft.com/en-us/graph/api/resources/approleassignment?view=graph-rest-1.0#properties
+  principal_object_id = data.azuread_group.rsc.object_id
+  resource_object_id  = azuread_service_principal.polaris.object_id
+}
 
 # Create a password for the app registration
 resource "azuread_application_password" "polaris" {
