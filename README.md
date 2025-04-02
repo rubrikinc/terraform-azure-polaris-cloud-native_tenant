@@ -19,10 +19,11 @@ terraform {
   required_providers {
     azuread = {
       source  = "hashicorp/azuread"
+      version = ">=2.15.0"
     }
     polaris = {
       source  = "rubrikinc/polaris"
-      version = ">=0.9.0-beta.8"
+      version = "=1.1.0-beta.5"
     } 
   }
 }
@@ -38,10 +39,7 @@ provider "polaris" {
 } 
 
 module "polaris-azure-cloud-native_tenant" {
-  source                          = "rubrikinc/polaris-cloud-native_tenant/azure"
-  
-  azure_tenant_id                 = "abcdef01-2345-6789-abcd-ef0123456789"
-  polaris_credentials             = "../.creds/customer-service-account.json"
+  source = "rubrikinc/polaris-cloud-native_tenant/azure"
 }
 ```
 
@@ -52,28 +50,39 @@ module "polaris-azure-cloud-native_tenant" {
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_polaris"></a> [polaris](#requirement\_polaris) | >=0.9.0-beta.3 |
+| <a name="requirement_azuread"></a> [azuread](#requirement\_azuread) | >=2.15.0 |
+| <a name="requirement_polaris"></a> [polaris](#requirement\_polaris) | =1.1.0-beta.5 |
+| <a name="requirement_time"></a> [time](#requirement\_time) | >= 0.13.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_azuread"></a> [azuread](#provider\_azuread) | n/a |
-| <a name="provider_polaris"></a> [polaris](#provider\_polaris) | >=0.9.0-beta.3 |
-| <a name="provider_time"></a> [time](#provider\_time) | n/a |
+| <a name="provider_azuread"></a> [azuread](#provider\_azuread) | >=2.15.0 |
+| <a name="provider_polaris"></a> [polaris](#provider\_polaris) | =1.1.0-beta.5 |
+| <a name="provider_time"></a> [time](#provider\_time) | >= 0.13.0 |
 
 ## Resources
 
 | Name | Type |
 |------|------|
+| [azuread_app_role_assignment.polaris](https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/app_role_assignment) | resource |
 | [azuread_application.polaris](https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/application) | resource |
+| [azuread_application_password.polaris](https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/application_password) | resource |
 | [azuread_service_principal.polaris](https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/service_principal) | resource |
-| [azuread_service_principal_password.polaris](https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/service_principal_password) | resource |
-| [polaris_azure_service_principal.polaris](https://registry.terraform.io/providers/rubrikinc/polaris/latest/docs/resources/azure_service_principal) | resource |
+| [azuread_service_principal_delegated_permission_grant.azstg](https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/service_principal_delegated_permission_grant) | resource |
+| [azuread_service_principal_delegated_permission_grant.azsvcmgmt](https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/service_principal_delegated_permission_grant) | resource |
+| [azuread_service_principal_delegated_permission_grant.msgraph](https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/service_principal_delegated_permission_grant) | resource |
+| [polaris_azure_service_principal.polaris](https://registry.terraform.io/providers/rubrikinc/polaris/1.1.0-beta.5/docs/resources/azure_service_principal) | resource |
 | [time_sleep.wait_for_sp](https://registry.terraform.io/providers/hashicorp/time/latest/docs/resources/sleep) | resource |
+| [azuread_application_published_app_ids.well_known](https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/data-sources/application_published_app_ids) | data source |
 | [azuread_client_config.current](https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/data-sources/client_config) | data source |
 | [azuread_domains.polaris](https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/data-sources/domains) | data source |
-| [polaris_account.polaris](https://registry.terraform.io/providers/rubrikinc/polaris/latest/docs/data-sources/account) | data source |
+| [azuread_group.rsc](https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/data-sources/group) | data source |
+| [azuread_service_principal.azstg](https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/data-sources/service_principal) | data source |
+| [azuread_service_principal.azsvcmgmt](https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/data-sources/service_principal) | data source |
+| [azuread_service_principal.msgraph](https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/data-sources/service_principal) | data source |
+| [polaris_account.polaris](https://registry.terraform.io/providers/rubrikinc/polaris/1.1.0-beta.5/docs/data-sources/account) | data source |
 
 ## Modules
 
@@ -83,17 +92,17 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_azure_tenant_id"></a> [azure\_tenant\_id](#input\_azure\_tenant\_id) | ID of Azure Tenant to protect. | `string` | n/a | yes |
-| <a name="input_polaris_credentials"></a> [polaris\_credentials](#input\_polaris\_credentials) | Full path to credentials file for RSC/Polaris. | `string` | n/a | yes |
+| <a name="input_azure_application_display_name"></a> [azure\_application\_display\_name](#input\_azure\_application\_display\_name) | Display name for the Azure application. | `string` | `"Rubrik Security Cloud - Azure Protection"` | no |
+| <a name="input_azure_tenant_id"></a> [azure\_tenant\_id](#input\_azure\_tenant\_id) | Deprecated: no replacement. | `string` | `null` | no |
+| <a name="input_polaris_credentials"></a> [polaris\_credentials](#input\_polaris\_credentials) | Deprecated: no replacement. | `string` | `null` | no |
 | <a name="input_rsc_sync_delay"></a> [rsc\_sync\_delay](#input\_rsc\_sync\_delay) | Delay so that Azure and RSC can sync on the new service principal. | `string` | `"60s"` | no |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
-| <a name="output_azure_service_principal_object_id"></a> [azure\_service\_principal\_object\_id](#output\_azure\_service\_principal\_object\_id) | n/a |
-| <a name="output_rsc_service_principal_tenant_domain"></a> [rsc\_service\_principal\_tenant\_domain](#output\_rsc\_service\_principal\_tenant\_domain) | n/a |
-
+| <a name="output_azure_service_principal_object_id"></a> [azure\_service\_principal\_object\_id](#output\_azure\_service\_principal\_object\_id) | The Azure object id of the service principal used by RSC. |
+| <a name="output_rsc_service_principal_tenant_domain"></a> [rsc\_service\_principal\_tenant\_domain](#output\_rsc\_service\_principal\_tenant\_domain) | The Azure domain name of the service principal used by RSC. |
 
 <!-- END_TF_DOCS -->
 
@@ -128,10 +137,10 @@ use this backend unless the backend configuration changes.
 Initializing provider plugins...
 - Finding latest version of hashicorp/azuread...
 - Finding latest version of rubrikinc/polaris...
-- Installing hashicorp/azuread v2.43.0...
-- Installed hashicorp/azuread v2.43.0 (signed by HashiCorp)
-- Installing rubrikinc/polaris v0.7.2...
-- Installed rubrikinc/polaris v0.7.2 (signed by a HashiCorp partner, key ID 6B41B7EAD9DB76FB)
+- Installing hashicorp/azuread v2.15.0...
+- Installed hashicorp/azuread v2.15.0 (signed by HashiCorp)
+- Installing rubrikinc/polaris v1.1.0-beta.5...
+- Installed rubrikinc/polaris v1.1.0-beta.5 (signed by a HashiCorp partner, key ID 6B41B7EAD9DB76FB)
 
 Partner and community providers are signed by their developers.
 If you'd like to know more about provider signing, you can read about it here:
@@ -169,12 +178,12 @@ Once the subscription no longer needs protection, it can be removed from RSC usi
 ### Error: failed to lookup principal
 
 ```
+╷
 │ Error: failed to lookup principal: failed to lookup app display name and object id for service principal: failed to get Azure service principal names using Graph: graphrbac.ServicePrincipalsClient#List: Failure responding to request: StatusCode=401 -- Original Error: autorest/azure: Service returned an error. Status=401 Code="Unknown" Message="Unknown service error" Details=[{"odata.error":{"code":"Authorization_IdentityNotFound","date":"2023-10-02T18:43:00","message":{"lang":"en","value":"The identity of the calling application could not be established."},"requestId":"3df53cfb-0f10-494d-84a9-da86d4348353"}}]
 │ 
 │   with polaris_azure_service_principal.polaris,
 │   on main.tf line 22, in resource "polaris_azure_service_principal" "polaris":
 │   22: resource "polaris_azure_service_principal" "polaris" {
-  
 ```
 
 Logout and back in again from Azure"
@@ -186,7 +195,8 @@ Logout and back in again from Azure"
 
 When the last subscription in an Azure tenant has been deleted you may get this error, as the tenant has also been deleted from RSC:
 
-```╷
+```
+╷
 │ Error: failed to add subscription: failed to request addAzureCloudAccountWithoutOauth: graphql response body is an error (status code 200): NOT_FOUND: Failed to get service principal in the tenant. Azure may take some time to sync service principal. Please try after a minute (Azure error: [Unknown] Unknown service error) (code: 404, traceId: FWaZk7YsxjaRDF5NlWWsAw==)
 │ 
 │   with polaris_azure_subscription.polaris,

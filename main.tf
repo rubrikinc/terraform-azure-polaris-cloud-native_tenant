@@ -29,14 +29,14 @@ data "azuread_service_principal" "azsvcmgmt" {
 
 # Create an application
 resource "azuread_application" "polaris" {
-  display_name            = "Rubrik Security Cloud - Azure Protection"
+  display_name            = var.azure_application_display_name
   owners                  = [data.azuread_client_config.current.object_id]
   prevent_duplicate_names = true
-  
+
   web {
     homepage_url = "https://${data.polaris_account.polaris.fqdn}/setup_azure"
   }
-  
+
   required_resource_access {
     resource_app_id = data.azuread_application_published_app_ids.well_known.result.MicrosoftGraph
 
@@ -69,15 +69,15 @@ resource "azuread_application" "polaris" {
 resource "azuread_service_principal" "polaris" {
   client_id = azuread_application.polaris.client_id
   owners    = [data.azuread_client_config.current.object_id]
-  
+
   # If app_role_assignment_required value is set to true, then it is required a user or group is assigned in order to use this app.
   # This is recommended to ensure only authorized users are able to operate Rubrik Security Cloud through this App.
-  
+
   app_role_assignment_required = true
 
   # If set to true, then see the azuread_group data import and azuread_app_role_assignment resource examples below.
   # Modify to align to your requirements for the same.
-  
+
   feature_tags {
     hide = "true"
   }
@@ -118,19 +118,19 @@ resource "azuread_app_role_assignment" "polaris" {
   resource_object_id  = azuread_service_principal.polaris.object_id
 }
 
-# Create a password for the service principal
-resource "azuread_service_principal_password" "polaris" {
-  service_principal_id = azuread_service_principal.polaris.object_id
+# Create a password for the application
+resource "azuread_application_password" "polaris" {
+  application_id = azuread_application.polaris.id
 }
 
 # Add the service principal to RSC:
 resource "polaris_azure_service_principal" "polaris" {
   app_id        = azuread_application.polaris.client_id
   app_name      = azuread_service_principal.polaris.display_name
-  app_secret    = azuread_service_principal_password.polaris.value
+  app_secret    = azuread_application_password.polaris.value
   tenant_domain = data.azuread_domains.polaris.domains.0.domain_name
   tenant_id     = azuread_service_principal.polaris.application_tenant_id
-} 
+}
 
 # Give RSC time for the service principal to be created before adding the subscription(s).
 resource "time_sleep" "wait_for_sp" {

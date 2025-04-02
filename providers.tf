@@ -2,20 +2,15 @@ terraform {
   required_providers {
     azuread = {
       source  = "hashicorp/azuread"
+      version = ">=2.15.0"
     }
     polaris = {
       source  = "rubrikinc/polaris"
-      version = ">=0.9.0-beta.8"
-    } 
+      version = "=1.1.0-beta.5"
+    }
+    time = {
+      source  = "hashicorp/time"
+      version = ">= 0.13.0"
+    }
   }
 }
-
-# # Configure the Azure Active Directory Provider
-# provider "azuread" {
-#   tenant_id = var.azure_tenant_id
-# }
-
-# # Point the provider to the RSC service account to use.
-# provider "polaris" {
-#   credentials = var.polaris_credentials
-# } 
