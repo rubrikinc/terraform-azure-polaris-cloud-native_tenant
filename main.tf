@@ -129,3 +129,12 @@ resource "polaris_azure_service_principal" "polaris" {
   tenant_domain = data.azuread_domains.polaris.domains.0.domain_name
   tenant_id     = azuread_service_principal.polaris.application_tenant_id
 }
+
+# Give RSC time for the service principal to be created before adding the subscription(s).
+resource "time_sleep" "wait_for_sp" {
+  create_duration = var.rsc_sync_delay
+
+  depends_on = [
+    polaris_azure_service_principal.polaris
+  ]
+}

@@ -8,5 +8,9 @@ terraform {
       source  = "rubrikinc/polaris"
       version = "=1.1.0-beta.5"
     }
+    time = {
+      source  = "hashicorp/time"
+      version = ">=0.13.0"
+    }
   }
 }

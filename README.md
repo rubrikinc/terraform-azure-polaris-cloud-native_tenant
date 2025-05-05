@@ -56,6 +56,7 @@ welcome. Thank you in advance for all of your issues, pull requests, and comment
 |------|---------|
 | <a name="requirement_azuread"></a> [azuread](#requirement\_azuread) | >=2.15.0 |
 | <a name="requirement_polaris"></a> [polaris](#requirement\_polaris) | =1.1.0-beta.5 |
+| <a name="requirement_time"></a> [time](#requirement\_time) | >=0.13.0 |
 
 ## Providers
 
@@ -63,6 +64,7 @@ welcome. Thank you in advance for all of your issues, pull requests, and comment
 |------|---------|
 | <a name="provider_azuread"></a> [azuread](#provider\_azuread) | >=2.15.0 |
 | <a name="provider_polaris"></a> [polaris](#provider\_polaris) | =1.1.0-beta.5 |
+| <a name="provider_time"></a> [time](#provider\_time) | >=0.13.0 |
 
 ## Resources
 
@@ -76,6 +78,7 @@ welcome. Thank you in advance for all of your issues, pull requests, and comment
 | [azuread_service_principal_delegated_permission_grant.azsvcmgmt](https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/service_principal_delegated_permission_grant) | resource |
 | [azuread_service_principal_delegated_permission_grant.msgraph](https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/service_principal_delegated_permission_grant) | resource |
 | [polaris_azure_service_principal.polaris](https://registry.terraform.io/providers/rubrikinc/polaris/1.1.0-beta.5/docs/resources/azure_service_principal) | resource |
+| [time_sleep.wait_for_sp](https://registry.terraform.io/providers/hashicorp/time/latest/docs/resources/sleep) | resource |
 | [azuread_application_published_app_ids.well_known](https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/data-sources/application_published_app_ids) | data source |
 | [azuread_client_config.current](https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/data-sources/client_config) | data source |
 | [azuread_domains.polaris](https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/data-sources/domains) | data source |
@@ -92,7 +95,7 @@ welcome. Thank you in advance for all of your issues, pull requests, and comment
 | <a name="input_azure_application_display_name"></a> [azure\_application\_display\_name](#input\_azure\_application\_display\_name) | Display name for the Azure application. | `string` | `"Rubrik Security Cloud - Azure Protection"` | no |
 | <a name="input_azure_tenant_id"></a> [azure\_tenant\_id](#input\_azure\_tenant\_id) | Deprecated: no replacement. | `string` | `null` | no |
 | <a name="input_polaris_credentials"></a> [polaris\_credentials](#input\_polaris\_credentials) | Deprecated: no replacement. | `string` | `null` | no |
-| <a name="input_rsc_sync_delay"></a> [rsc\_sync\_delay](#input\_rsc\_sync\_delay) | Deprecated: no replacement. | `string` | `null` | no |
+| <a name="input_rsc_sync_delay"></a> [rsc\_sync\_delay](#input\_rsc\_sync\_delay) | Delay so that Azure and RSC can sync on the new service principal. | `string` | `"60s"` | no |
 
 ## Outputs
 

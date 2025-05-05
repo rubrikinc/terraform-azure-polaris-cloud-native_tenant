@@ -18,8 +18,8 @@ variable "polaris_credentials" {
 
 variable "rsc_sync_delay" {
   type        = string
-  description = "Deprecated: no replacement."
-  default     = null
+  description = "Delay so that Azure and RSC can sync on the new service principal."
+  default     = "60s"
 }
 
 check "deprecations" {
@@ -30,9 +30,5 @@ check "deprecations" {
   assert {
     condition     = var.polaris_credentials == null
     error_message = "The polaris_credentials variable has been deprecated. It has no replacement and will be removed in a future release."
-  }
-  assert {
-    condition     = var.rsc_sync_delay == null
-    error_message = "The rsc_sync_delay variable has been deprecated. It has no replacement and will be removed in a future release."
   }
 }
