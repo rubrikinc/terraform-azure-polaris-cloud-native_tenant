@@ -17,7 +17,7 @@ resources.
 | Name | Version |
 |------|---------|
 | <a name="requirement_azuread"></a> [azuread](#requirement\_azuread) | >=2.15.0 |
-| <a name="requirement_polaris"></a> [polaris](#requirement\_polaris) | =1.1.0-beta.5 |
+| <a name="requirement_polaris"></a> [polaris](#requirement\_polaris) | >=1.1.0 |
 
 ## Modules
 

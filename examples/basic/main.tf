@@ -6,14 +6,14 @@ terraform {
     }
     polaris = {
       source  = "rubrikinc/polaris"
-      version = "=1.1.0-beta.5"
+      version = ">=1.1.0"
     }
   }
 }
 
 variable "azure_tenant_id" {
-    type        = string
-    description = "Azure tenant ID."
+  type        = string
+  description = "Azure tenant ID."
 }
 
 variable "polaris_credentials" {
