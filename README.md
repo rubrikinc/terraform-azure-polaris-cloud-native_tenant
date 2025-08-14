@@ -13,17 +13,20 @@ module "polaris_azure_cloud_native_tenant" {
 
 ## Changelog
 
+### v1.1.2
+* Update the version constraint of `rubrikinc/polaris` provider to `>=1.1.0`.
+
 ### v1.1.1
-  * Initialize the `app_name` of the `polaris_azure_service_principal` resource using the `display_name` of the
-    `azuread_application` instead of the `azuread_service_principal`.
+* Initialize the `app_name` of the `polaris_azure_service_principal` resource using the `display_name` of the
+  `azuread_application` instead of the `azuread_service_principal`.
 
 ### v1.1.0
-  * Replace the `azuread_service_principal_password` resource with the `azuread_application_password` resource. This
-    will update the secret of the `polaris_azure_service_principal` resource.
-  * Add `azure_application_display_name` as an input variable.
-  * Mark `azure_tenant_id` and `polaris_credentials` input variables as deprecated. They are no longer used by the
-    module and have no replacements.
-  * Move example configuration code from the README.md file to the examples directory.
+* Replace the `azuread_service_principal_password` resource with the `azuread_application_password` resource. This will
+  update the secret of the `polaris_azure_service_principal` resource.
+* Add `azure_application_display_name` as an input variable.
+* Mark `azure_tenant_id` and `polaris_credentials` input variables as deprecated. They are no longer used by the module
+  and have no replacements.
+* Move example configuration code from the README.md file to the examples directory.
 
 ## Upgrading
 
@@ -90,16 +93,16 @@ welcome. Thank you in advance for all of your issues, pull requests, and comment
 | Name | Version |
 |------|---------|
 | <a name="requirement_azuread"></a> [azuread](#requirement\_azuread) | >=2.15.0 |
-| <a name="requirement_polaris"></a> [polaris](#requirement\_polaris) | =1.1.0-beta.5 |
+| <a name="requirement_polaris"></a> [polaris](#requirement\_polaris) | >=1.1.0 |
 | <a name="requirement_time"></a> [time](#requirement\_time) | >=0.13.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_azuread"></a> [azuread](#provider\_azuread) | >=2.15.0 |
-| <a name="provider_polaris"></a> [polaris](#provider\_polaris) | =1.1.0-beta.5 |
-| <a name="provider_time"></a> [time](#provider\_time) | >=0.13.0 |
+| <a name="provider_azuread"></a> [azuread](#provider\_azuread) | 3.5.0   |
+| <a name="provider_polaris"></a> [polaris](#provider\_polaris) | 1.1.6   |
+| <a name="provider_time"></a> [time](#provider\_time) | 0.13.1  |
 
 ## Resources
 
@@ -112,7 +115,7 @@ welcome. Thank you in advance for all of your issues, pull requests, and comment
 | [azuread_service_principal_delegated_permission_grant.azstg](https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/service_principal_delegated_permission_grant) | resource |
 | [azuread_service_principal_delegated_permission_grant.azsvcmgmt](https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/service_principal_delegated_permission_grant) | resource |
 | [azuread_service_principal_delegated_permission_grant.msgraph](https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/service_principal_delegated_permission_grant) | resource |
-| [polaris_azure_service_principal.polaris](https://registry.terraform.io/providers/rubrikinc/polaris/1.1.0-beta.5/docs/resources/azure_service_principal) | resource |
+| [polaris_azure_service_principal.polaris](https://registry.terraform.io/providers/rubrikinc/polaris/latest/docs/resources/azure_service_principal) | resource |
 | [time_sleep.wait_for_sp](https://registry.terraform.io/providers/hashicorp/time/latest/docs/resources/sleep) | resource |
 | [azuread_application_published_app_ids.well_known](https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/data-sources/application_published_app_ids) | data source |
 | [azuread_client_config.current](https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/data-sources/client_config) | data source |
@@ -121,7 +124,7 @@ welcome. Thank you in advance for all of your issues, pull requests, and comment
 | [azuread_service_principal.azstg](https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/data-sources/service_principal) | data source |
 | [azuread_service_principal.azsvcmgmt](https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/data-sources/service_principal) | data source |
 | [azuread_service_principal.msgraph](https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/data-sources/service_principal) | data source |
-| [polaris_account.polaris](https://registry.terraform.io/providers/rubrikinc/polaris/1.1.0-beta.5/docs/data-sources/account) | data source |
+| [polaris_account.polaris](https://registry.terraform.io/providers/rubrikinc/polaris/latest/docs/data-sources/account) | data source |
 
 ## Inputs
 
